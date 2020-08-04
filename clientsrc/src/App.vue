@@ -11,17 +11,17 @@ import { onAuth } from "@bcwdev/auth0-vue";
 export default {
   name: "App",
   async beforeCreate() {
-    try {
-      await onAuth();
-      this.$store.dispatch("setBearer", this.$auth.bearer);
-      this.$store.dispatch("getProfile");
-    } catch (err) {
-      this.$router.push({ name: "home" });
-    }
+    // try {
+    //   await onAuth();
+    //   this.$store.dispatch("setBearer", this.$auth.bearer);
+    //   this.$store.dispatch("getProfile");
+    // } catch (err) {
+    //   this.$router.push({ name: "home" });
+    // }
   },
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 
@@ -50,5 +50,14 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+body {
+  background: url("./assets/bgimg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
 }
 </style>

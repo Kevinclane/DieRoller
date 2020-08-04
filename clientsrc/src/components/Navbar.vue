@@ -1,8 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <router-link class="navbar-brand" :to="{ name: 'home' }"
-      >Kanban</router-link
-    >
+    <router-link class="navbar-brand" :to="{ name: 'home' }">Die Roller</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -17,29 +15,15 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" :class="{ active: $route.name == 'home' }">
-          <router-link :to="{ name: 'home' }" class="nav-link"
-            >Home</router-link
-          >
-        </li>
-        <li
-          class="nav-item"
-          v-if="$auth.isAuthenticated"
-          :class="{ active: $route.name == 'boards' }"
-        >
-          <router-link class="nav-link" :to="{ name: 'boards' }"
-            >My-Dashboard</router-link
-          >
+          <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
         </li>
       </ul>
-      <span class="navbar-text">
-        <button
-          class="btn btn-success"
-          @click="login"
-          v-if="!$auth.isAuthenticated"
-        >
-          Login
-        </button>
-        <button class="btn btn-danger" @click="logout" v-else>logout</button>
+      <span>
+        <form @submit.prevent="selectDieNum()">
+          <input type="number" name="setDieNum" id="setDieNum" />
+          <label for="setDieNum">Select number of dice</label>
+          <button type="submit" class="btn btn-primary">Set</button>
+        </form>
       </span>
     </div>
   </nav>
@@ -50,10 +34,15 @@ import axios from "axios";
 
 let _api = axios.create({
   baseURL: "https://localhost:3000",
-  withCredentials: true
+  withCredentials: true,
 });
 export default {
   name: "Navbar",
+  data() {
+    return {
+      formNum: 1,
+    };
+  },
   methods: {
     async login() {
       await this.$auth.loginWithPopup();
@@ -63,9 +52,17 @@ export default {
       console.log(this.$auth.user);
     },
     async logout() {
-      await this.$auth.logout({returnTo: window.location.origin});
-    }
-  }
+      await this.$auth.logout({ returnTo: window.location.origin });
+    },
+    selectDieNum() {
+      this.$store.dispatch("chooseDieNum", event.target.setDieNum.value);
+    },
+  },
+  computed: {
+    dice() {
+      return this.$store.state.currentDieNum;
+    },
+  },
 };
 </script>
 

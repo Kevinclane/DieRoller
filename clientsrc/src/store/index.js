@@ -16,57 +16,35 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    user: {},
-    boards: [],
-    activeBoard: {}
+    currentDieNum: []
   },
   mutations: {
-    setUser(state, user) {
-      state.user = user
-    },
-    setBoards(state, boards) {
-      state.boards = boards
+    setDieNum(state, dice) {
+      state.currentDieNum = dice
     }
   },
   actions: {
-    //#region -- AUTH STUFF --
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
     },
-    async getProfile({ commit }) {
-      try {
-        let res = await api.get("/profile")
-        commit("setUser", res.data)
-      } catch (err) {
-        console.error(err)
+    chooseDieNum({ commit }, num) {
+      let res = []
+      let i = 0
+      while (i < num) {
+        let die = {
+          index: i,
+          output: ""
+        }
+        res.push(die)
+        i++
       }
+      commit("setDieNum", res)
     },
-    //#endregion
-
-
-    //#region -- BOARDS --
-    getBoards({ commit, dispatch }) {
-      api.get('boards')
-        .then(res => {
-          commit('setBoards', res.data)
-        })
-    },
-    addBoard({ commit, dispatch }, boardData) {
-      api.post('boards', boardData)
-        .then(serverBoard => {
-          dispatch('getBoards')
-        })
+    setDiceImages({ commit }, dice) {
+      commit("setDieNum", dice)
     }
-    //#endregion
-
-
-    //#region -- LISTS --
-
-
-
-    //#endregion
   }
 })
