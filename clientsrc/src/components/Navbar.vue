@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <router-link class="navbar-brand" :to="{ name: 'home' }">Die Roller</router-link>
+  <div class="bg-secondary p-2">
+    <!-- <router-link class="navbar-brand" :to="{ name: 'home' }">Die Roller</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -17,16 +17,16 @@
         <li class="nav-item" :class="{ active: $route.name == 'home' }">
           <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
         </li>
-      </ul>
-      <span>
-        <form @submit.prevent="selectDieNum()">
-          <input type="number" name="setDieNum" id="setDieNum" />
-          <label for="setDieNum">Select number of dice</label>
-          <button type="submit" class="btn btn-primary">Set</button>
-        </form>
-      </span>
-    </div>
-  </nav>
+    </ul>-->
+    <span>
+      <form @submit.prevent="selectDieNum()">
+        <input type="number" name="setDieNum" id="setDieNum" />
+        <label for="setDieNum">Select number of dice</label>
+        <button type="submit" class="btn btn-primary">Set</button>
+      </form>
+    </span>
+    <!-- </div> -->
+  </div>
 </template>
 
 <script>
