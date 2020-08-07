@@ -9,7 +9,7 @@
         </form>
       </div>
     </div>-->
-    <div class="row">
+    <div class="row d-flex justify-content-center">
       <Die v-for="die in dice" :key="die.index" :die="die" />
     </div>
     <button @click="rollDice" class="my-3 btn btn-success w-50">Roll</button>
